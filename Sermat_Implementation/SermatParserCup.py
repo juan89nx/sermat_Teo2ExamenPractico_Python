@@ -5,7 +5,7 @@ from Sermat_Implementation.SermatLexer import tokens
 
 import Sermat_Implementation.SermatLexer as Lex
 
-# Precedence rules for the arithmetic operators
+# Precedence rules
 precedence = (
     ('ID', 'EQUALS', 'STR'),
     ('LEFT_BRACE', 'RIGHT_BRACE'),
@@ -38,12 +38,14 @@ def p_value(v):
              | STR LEFT_PAR RIGHT_PAR
              | STR LEFT_PAR elements RIGHT_PAR'''
     if (v[1] == '{' and v[2] == '}') : v[0] = {}
-    elif (v[1] == '{' and v[2] == 'members' and v[3]  == '}'): v[0] = v[2]
+    elif (v[1] == '{' and v[3]  == '}'): v[0] = v[2]
     elif (v[1] == '[' and v[2] == ']') : v[0] = []
     elif (v[1] == '[' and v[2] == 'elements' and v[3]  == ']'): v[0] = v[2]
     elif (v[1] == 'TRUE') : v[0] = v[1]
     elif (v[1] == 'FALSE') : v[0] = v[1]
-    elif (v[1] == 'NUM') : v[0] = v[1]
+    elif (v[1] == 'NUM') :
+        v[0] = v[1]
+        print "ACA!"
     elif (v[1] == 'NULL') : v[0] = None
     elif (v[1] == 'STR') : v[0] = v[1]
     elif (v[1] == 'ID' and v[2]== 'EQUALS' and v[3]== 'value') :
@@ -102,8 +104,8 @@ while True:
         s = raw_input('entrada > ')   # use input() on Python 3
     except EOFError:
         break
-
-    print(parser.parse(s))
+    result = parser.parse(s)
+    print(result)
 
 
 

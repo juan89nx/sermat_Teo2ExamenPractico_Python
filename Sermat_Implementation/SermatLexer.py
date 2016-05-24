@@ -1,5 +1,4 @@
 import ply_LexCup.lex as lex
-from test.test_cmath import NAN
 
 tokens = (
     'EQUALS',
@@ -30,38 +29,46 @@ t_RIGHT_BRACK = r'\]'
 t_LEFT_PAR = r'\('
 t_RIGHT_PAR = r'\)'
 t_NULL = r'null'
-t_TRUE = r'true'
+t_TRUE = r'\true'
 t_FALSE = r'\false'
 t_ID = r'[\$A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
-t_STR = r'\"([^\\\"]|\\[\0-\uFFFF])*\"'
-#t_ignore_IGNORAR = r'[ \t\r\n\f]+|\/\*+([^\*]|\*+[^\/])*\*+\/'
+#t_ID = r'\&'
+#r'[\$A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
 
 def t_NUM(t):
     r'NaN|[+-]?Infinity|[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?'
     t.value = int(t.value)
     return t
 
-def t_ignore_IGNORAR(t):
+def t_STR(t):
+    r'\"([^\\\"]|\\[\0-\uFFFF])*\"'
+    escaped = 0
+    myString = t.value[1:-1]
+    new_str = ""
+    for i in range(0, len(myString)):
+        c = myString[i]
+        if escaped:
+            if c == "n":
+                c = "\n"
+            elif c == "t":
+                c = "\t"
+            new_str += c
+            escaped = 0
+        else:
+            if c == "\\":
+                escaped = 1
+            else:
+                new_str += c
+    t.value = new_str
+    return t
+
+def t_regular_exp_ignoro(t):
     r'[ \t\r\n\f]+|\/\*+([^\*]|\*+[^\/])*\*+\/'
     pass
     # No return value. Token discarded
 
-# Para fixear error de 't_ID'
-#def t_ID(t):
-#    r'[\$A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
-#    return t
-
-
-#def t_STR(t):
-#    r'\"([^\\\"]|\\[\0-\uFFFF])*\"'
-#    return t
-
-
 # Ignored characters
-t_ignore = ' \t\r\n\f'#|/\*+([^\*]|\*+[^\/])*\*+/'
-
-
-# t_ignore = "\/\*+([^\*]|\*+[^\/])*\*+\/"
+t_ignore = ' \t\r\n\f'
 
 def t_newline(t):
     r'\n+'
@@ -79,8 +86,7 @@ def buildLexer():
     return myLexer
 
 
-# Fruta para probar los tokens
-# tokenize()
+# tokenize() -> para probar los tokens
 # Utility function. Given a string of text, tokenize into a list of tokens
 def tokenize2(text):
     tokens2 = []
