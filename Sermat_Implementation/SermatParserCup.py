@@ -26,72 +26,129 @@ def p_value(v):
              | LEFT_BRACE members RIGHT_BRACE
              | LEFT_BRACK RIGHT_BRACK
              | LEFT_BRACK elements RIGHT_BRACK
-             | TRUE
-             | FALSE
-             | NUM
-             | NULL
-             | STR
              | ID EQUALS value
-             | ID
              | ID LEFT_PAR RIGHT_PAR
-             | ID LEFT_PAR elements RIGHT_PAR
-             | STR LEFT_PAR RIGHT_PAR
-             | STR LEFT_PAR elements RIGHT_PAR'''
-    if (v[1] == '{' and v[2] == '}') : v[0] = {}
-    elif (v[1] == '{' and v[3]  == '}'): v[0] = v[2]
-    elif (v[1] == '[' and v[2] == ']') : v[0] = []
-    elif (v[1] == '[' and v[2] == 'elements' and v[3]  == ']'): v[0] = v[2]
-    elif (v[1] == 'TRUE') : v[0] = v[1]
-    elif (v[1] == 'FALSE') : v[0] = v[1]
-    elif (v[1] == 'NUM') :
-        v[0] = v[1]
-        print "ACA!"
-    elif (v[1] == 'NULL') : v[0] = None
-    elif (v[1] == 'STR') : v[0] = v[1]
-    elif (v[1] == 'ID' and v[2]== 'EQUALS' and v[3]== 'value') :
+             | ID LEFT_PAR elements RIGHT_PAR'''
+    if (v[1] == '{' and v[2] == '}') :
+        v[0] = {}
+        print (len(v))
+        print("Soy value rule 1")
+    elif (v[1] == '{' and v[3]  == '}'):
+        v[0] = v[2]
+        print("Soy value rule 2")
+    elif (v[1] == '[' and v[2] == ']') :
+        v[0] = []
+        print("Soy value rule 3")
+    elif (v[1] == '[' and v[3]  == ']'):
+        v[0] = v[2]
+        print("Soy value rule 4")
+    elif (v[2] == '=') :
         v[0] = v[3]
-        membersVar[v[1]]=v[3]
-    elif (v[1] == 'ID') :
-        v[0]=v[1]
-        membersVar[v[1]] = None
-     #Preguntar-> Fruta!!!   
-    elif (v[1] == 'ID' and v[2] == '(' and v[3]== ')') :
+        membersVar[v[1]] = v[3]
+        # Preguntar, deberia guardar en un map.
+        '''Podria ser:
+            v[0]={}
+        if v[0].has_key(v[1]) == False:
+            v[0][v[1]]=v[3]
+        '''
+        print("Soy value rule 5, igual")
+    elif (v[2] == '(' and v[3]== ')') :
         v[0] = []
         membersVar[v[1]]=v[0]
-    elif (v[1] == 'ID' and v[2] == '(' and v[3]== 'elements' and v[4]== ')') :
+        print("Soy value rule 6")
+    elif (v[2] == '(' and v[4]== ')') :
         v[0] = v[3]
         membersVar[v[1]]=v[0]
-    elif (v[1] == 'STR' and v[2]== '(' and v[3]== ')') :
-        v[0]=[]
-        membersVar[v[1]]=v[0]
-        #Materialize
-    elif (v[1] == 'STR' and v[2]== '(' and v[3]== 'elements' and v[4]== ')') :
-        v[0]=v[3]
-        membersVar[v[1]]=v[3]
+        print("Soy value rule 7")
 
-def p_members(m):
-    '''members : members COMMA STR COLON value
-               | members COMMA ID COLON value
-               | STR COLON value
-               | ID COLON value'''
-    if (m[1] == 'members' and m[2] == 'COMMA' and m[3]=='STR' and m[4]=='COLON' and m[5]=='value') : 
-            m[0] = m[1]
-            membersVar[m[0]] = {m[3],m[5]}
-    elif (m[1] == 'members' and m[2] == 'COMMA' and m[3]=='ID' and m[4]=='COLON' and m[5]=='value') : 
-            m[0] = m[1]
-            membersVar[m[0]] = {m[3],m[5]}
-    elif (m[1] == 'STR' and m[2] == 'COLON' and m[3]=='value' ) : 
+def p_value_num(v):
+    'value : NUM'
+    if(len(v)==2):
+        v[0] = v[1]
+    print("Soy value NUM")
+
+def p_value_true(v):
+    'value : TRUE'
+    v[0] = v[1]
+    print("Soy value true")
+
+def p_value_false(v):
+    'value : FALSE'
+    v[0] = v[1]
+    print("Soy value false")
+
+def p_value_string(v):
+    'value : STR'
+    v[0] = v[1]
+    print("Soy value Str")
+
+def p_value_null(v):
+    'value : NULL'
+    v[0] = None
+print("Soy value NULL")
+
+def p_value_id(v):
+    'value : ID'
+    v[0] = v[1]
+    membersVar[v[1]] = None
+    print("Soy value ID")
+
+
+def p_value_str_rules(v):
+    '''value : STR LEFT_PAR  RIGHT_PAR
+             | STR LEFT_PAR elements RIGHT_PAR'''
+    if (v[2]=="(" and v[3]==")"):
+        v[0] = []
+        membersVar[v[1]] = v[0]
+        print("Soy value STR rule 1")
+    elif (len(v)==5):
+        v[0] = v[3]
+        membersVar[v[1]] = v[3]
+        print("Soy value STR rule 2")
+
+
+
+def p_members_mem_str_val(m):
+        'members : members COMMA STR COLON value'
+        m[0] = m[1]
+        membersVar[m[0]] = {m[3], m[5]}
+        print("Soy member rule 1")
+
+def p_members_mem_id_val(m):
+        'members : members COMMA ID COLON value'
+        m[0] = m[1]
+        membersVar[m[0]] = {m[3], m[5]}
+        print("Soy member rule 2")
+
+def p_members_str_val(m):
+        'members : STR COLON value'
+        if(m[2]==':'):
+            print ("entra :")
             m[0] = {}
             m[m[1]] = m[3]
-    
+            print("Soy member rule 3")
+
+def p_members_id_val(m):
+        'members : ID COLON value'
+        m[0] = {}
+        m[m[1]] = m[3]
+        print("Soy member rule 4")
+
+
 def p_elements(e):
     '''elements : value
                 | elements COMMA value'''
-    if (e[1] == 'value' ) : 
-        e[0]=[e[1]]
-    elif (e[1] == 'elements' and e[2]=='COMMA' and e[3]=='value' ) :         
+    global elementsVar
+    if (len(e)==4) :
         e[0] = e[1]
-        e[0] = e[0] + e[3]    
+        e[0] = e[0] + e[3]
+        elementsVar = [e[1]]
+        elementsVar.__add__(e[3])
+        print("Soy element rule 2")
+    else:
+        e[0] = [e[1]]
+        elementsVar.__add__(e[1])
+        print("Soy element rule 1")
 
 def p_error(p):
     print("Syntax error at '%s'" % p.value)

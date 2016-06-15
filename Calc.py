@@ -75,6 +75,7 @@ def p_expression_binop(p):
                   | expression DIVIDE expression'''
     if p[2] == '+':
         p[0] = p[1] + p[3]
+        print ("regla +")
     elif p[2] == '-':
         p[0] = p[1] - p[3]
     elif p[2] == '*':
@@ -90,11 +91,13 @@ def p_expression_uminus(p):
 
 def p_expression_group(p):
     'expression : LPAREN expression RPAREN'
+    print ("parentesis")
     p[0] = p[2]
 
 
 def p_expression_number(p):
     'expression : NUMBER'
+    print ("number")
     p[0] = p[1]
 
 

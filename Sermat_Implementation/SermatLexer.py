@@ -28,10 +28,17 @@ t_LEFT_BRACK = r'\['
 t_RIGHT_BRACK = r'\]'
 t_LEFT_PAR = r'\('
 t_RIGHT_PAR = r'\)'
-t_NULL = r'null'
-t_TRUE = r'\true'
-t_FALSE = r'\false'
-t_ID = r'[\$A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
+
+def t_ID(t):
+    r'[\$A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
+    if t.value == 'true':
+        t.type = 'TRUE'
+    elif t.value == 'false':
+        t.type='FALSE'
+    elif t.value == 'null':
+        t.type="NULL"
+    return t
+
 #t_ID = r'\&'
 #r'[\$A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
 

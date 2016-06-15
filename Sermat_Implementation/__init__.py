@@ -7,7 +7,7 @@ lex = buildLexer()
 
 print lex.lextokens_all
 
-varTokens = lexerVar.tokenize2('hola true false nulla null')
+varTokens = lexerVar.tokenize2('hola true null false nulla :')
 print "tokens->"
 print varTokens
 

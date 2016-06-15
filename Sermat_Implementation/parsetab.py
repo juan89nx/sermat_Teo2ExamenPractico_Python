@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'F599A246FDF6F3EDB7C0D68A2DB2EB18'
+_lr_signature = '50EF99EF9543EDA883756DC03164D744'
     
-_lr_action_items = {'NULL':([0,7,10,18,19,24,25,27,38,39,],[3,3,3,3,3,3,3,3,3,3,]),'FALSE':([0,7,10,18,19,24,25,27,38,39,],[1,1,1,1,1,1,1,1,1,1,]),'LEFT_PAR':([2,9,],[10,18,]),'RIGHT_BRACE':([1,2,3,5,6,8,9,11,12,15,21,22,26,29,30,31,34,35,37,40,41,],[-6,-9,-8,12,-7,-5,-11,22,-1,-3,-14,-2,-4,-12,-10,-15,-18,-19,-13,-16,-17,]),'EQUALS':([9,],[19,]),'RIGHT_BRACK':([1,2,3,6,7,8,9,12,15,16,17,21,22,26,29,30,31,36,37,],[-6,-9,-8,-7,15,-5,-11,-1,-3,-20,26,-14,-2,-4,-12,-10,-15,-21,-13,]),'NUM':([0,7,10,18,19,24,25,27,38,39,],[6,6,6,6,6,6,6,6,6,6,]),'COMMA':([1,2,3,6,8,9,11,12,15,16,17,20,21,22,26,28,29,30,31,34,35,36,37,40,41,],[-6,-9,-8,-7,-5,-11,23,-1,-3,-20,27,27,-14,-2,-4,27,-12,-10,-15,-18,-19,-21,-13,-16,-17,]),'LEFT_BRACE':([0,7,10,18,19,24,25,27,38,39,],[5,5,5,5,5,5,5,5,5,5,]),'STR':([0,5,7,10,18,19,23,24,25,27,38,39,],[2,13,2,2,2,2,32,2,2,2,2,2,]),'RIGHT_PAR':([1,2,3,6,8,9,10,12,15,16,18,20,21,22,26,28,29,30,31,36,37,],[-6,-9,-8,-7,-5,-11,21,-1,-3,-20,29,31,-14,-2,-4,37,-12,-10,-15,-21,-13,]),'COLON':([13,14,32,33,],[24,25,38,39,]),'LEFT_BRACK':([0,7,10,18,19,24,25,27,38,39,],[7,7,7,7,7,7,7,7,7,7,]),'TRUE':([0,7,10,18,19,24,25,27,38,39,],[8,8,8,8,8,8,8,8,8,8,]),'ID':([0,5,7,10,18,19,23,24,25,27,38,39,],[9,14,9,9,9,9,33,9,9,9,9,9,]),'$end':([1,2,3,4,6,8,9,12,15,21,22,26,29,30,31,37,],[-6,-9,-8,0,-7,-5,-11,-1,-3,-14,-2,-4,-12,-10,-15,-13,]),}
+_lr_action_items = {'NULL':([0,7,10,18,19,24,25,27,38,39,],[3,3,3,3,3,3,3,3,3,3,]),'FALSE':([0,7,10,18,19,24,25,27,38,39,],[1,1,1,1,1,1,1,1,1,1,]),'LEFT_PAR':([2,9,],[10,18,]),'RIGHT_BRACE':([1,2,3,5,6,8,9,11,12,15,21,22,26,29,30,31,34,35,37,40,41,],[-10,-11,-12,12,-8,-9,-13,22,-1,-3,-14,-2,-4,-6,-5,-15,-18,-19,-7,-16,-17,]),'EQUALS':([9,],[19,]),'RIGHT_BRACK':([1,2,3,6,7,8,9,12,15,16,17,21,22,26,29,30,31,36,37,],[-10,-11,-12,-8,15,-9,-13,-1,-3,-20,26,-14,-2,-4,-6,-5,-15,-21,-7,]),'NUM':([0,7,10,18,19,24,25,27,38,39,],[6,6,6,6,6,6,6,6,6,6,]),'COMMA':([1,2,3,6,8,9,11,12,15,16,17,20,21,22,26,28,29,30,31,34,35,36,37,40,41,],[-10,-11,-12,-8,-9,-13,23,-1,-3,-20,27,27,-14,-2,-4,27,-6,-5,-15,-18,-19,-21,-7,-16,-17,]),'LEFT_BRACE':([0,7,10,18,19,24,25,27,38,39,],[5,5,5,5,5,5,5,5,5,5,]),'STR':([0,5,7,10,18,19,23,24,25,27,38,39,],[2,13,2,2,2,2,32,2,2,2,2,2,]),'RIGHT_PAR':([1,2,3,6,8,9,10,12,15,16,18,20,21,22,26,28,29,30,31,36,37,],[-10,-11,-12,-8,-9,-13,21,-1,-3,-20,29,31,-14,-2,-4,37,-6,-5,-15,-21,-7,]),'COLON':([13,14,32,33,],[24,25,38,39,]),'LEFT_BRACK':([0,7,10,18,19,24,25,27,38,39,],[7,7,7,7,7,7,7,7,7,7,]),'TRUE':([0,7,10,18,19,24,25,27,38,39,],[8,8,8,8,8,8,8,8,8,8,]),'ID':([0,5,7,10,18,19,23,24,25,27,38,39,],[9,14,9,9,9,9,33,9,9,9,9,9,]),'$end':([1,2,3,4,6,8,9,12,15,21,22,26,29,30,31,37,],[-10,-11,-12,0,-8,-9,-13,-1,-3,-14,-2,-4,-6,-5,-15,-7,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -30,21 +30,21 @@ _lr_productions = [
   ('value -> LEFT_BRACE members RIGHT_BRACE','value',3,'p_value','SermatParserCup.py',26),
   ('value -> LEFT_BRACK RIGHT_BRACK','value',2,'p_value','SermatParserCup.py',27),
   ('value -> LEFT_BRACK elements RIGHT_BRACK','value',3,'p_value','SermatParserCup.py',28),
-  ('value -> TRUE','value',1,'p_value','SermatParserCup.py',29),
-  ('value -> FALSE','value',1,'p_value','SermatParserCup.py',30),
-  ('value -> NUM','value',1,'p_value','SermatParserCup.py',31),
-  ('value -> NULL','value',1,'p_value','SermatParserCup.py',32),
-  ('value -> STR','value',1,'p_value','SermatParserCup.py',33),
-  ('value -> ID EQUALS value','value',3,'p_value','SermatParserCup.py',34),
-  ('value -> ID','value',1,'p_value','SermatParserCup.py',35),
-  ('value -> ID LEFT_PAR RIGHT_PAR','value',3,'p_value','SermatParserCup.py',36),
-  ('value -> ID LEFT_PAR elements RIGHT_PAR','value',4,'p_value','SermatParserCup.py',37),
-  ('value -> STR LEFT_PAR RIGHT_PAR','value',3,'p_value','SermatParserCup.py',38),
-  ('value -> STR LEFT_PAR elements RIGHT_PAR','value',4,'p_value','SermatParserCup.py',39),
-  ('members -> members COMMA STR COLON value','members',5,'p_members','SermatParserCup.py',71),
-  ('members -> members COMMA ID COLON value','members',5,'p_members','SermatParserCup.py',72),
-  ('members -> STR COLON value','members',3,'p_members','SermatParserCup.py',73),
-  ('members -> ID COLON value','members',3,'p_members','SermatParserCup.py',74),
-  ('elements -> value','elements',1,'p_elements','SermatParserCup.py',86),
-  ('elements -> elements COMMA value','elements',3,'p_elements','SermatParserCup.py',87),
+  ('value -> ID EQUALS value','value',3,'p_value','SermatParserCup.py',29),
+  ('value -> ID LEFT_PAR RIGHT_PAR','value',3,'p_value','SermatParserCup.py',30),
+  ('value -> ID LEFT_PAR elements RIGHT_PAR','value',4,'p_value','SermatParserCup.py',31),
+  ('value -> NUM','value',1,'p_value_num','SermatParserCup.py',47),
+  ('value -> TRUE','value',1,'p_value_true','SermatParserCup.py',51),
+  ('value -> FALSE','value',1,'p_value_false','SermatParserCup.py',55),
+  ('value -> STR','value',1,'p_value_string','SermatParserCup.py',59),
+  ('value -> NULL','value',1,'p_value_null','SermatParserCup.py',63),
+  ('value -> ID','value',1,'p_value_id','SermatParserCup.py',67),
+  ('value -> STR LEFT_PAR RIGHT_PAR','value',3,'p_value_str_rules','SermatParserCup.py',73),
+  ('value -> STR LEFT_PAR elements RIGHT_PAR','value',4,'p_value_str_rules','SermatParserCup.py',74),
+  ('members -> members COMMA STR COLON value','members',5,'p_members_mem_str_val','SermatParserCup.py',103),
+  ('members -> members COMMA ID COLON value','members',5,'p_members_mem_id_val','SermatParserCup.py',108),
+  ('members -> STR COLON value','members',3,'p_members_str_val','SermatParserCup.py',113),
+  ('members -> ID COLON value','members',3,'p_members_id_val','SermatParserCup.py',118),
+  ('elements -> value','elements',1,'p_elements','SermatParserCup.py',124),
+  ('elements -> elements COMMA value','elements',3,'p_elements','SermatParserCup.py',125),
 ]
