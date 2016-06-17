@@ -39,8 +39,6 @@ def t_ID(t):
         t.type="NULL"
     return t
 
-#t_ID = r'\&'
-#r'[\$A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
 
 def t_NUM(t):
     r'NaN|[+-]?Infinity|[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?'

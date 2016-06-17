@@ -5,11 +5,11 @@ from Sermat_Implementation.SermatLexer import buildLexer
 
 lex = buildLexer()
 
-print lex.lextokens_all
+#print lex.lextokens_all
 
-varTokens = lexerVar.tokenize2('hola true null false nulla :')
-print "tokens->"
-print varTokens
+#varTokens = lexerVar.tokenize2('hola true null false nulla :')
+#print "tokens->"
+#print varTokens
 
 
 

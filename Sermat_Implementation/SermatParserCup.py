@@ -29,9 +29,9 @@ def p_value(v):
              | ID EQUALS value
              | ID LEFT_PAR RIGHT_PAR
              | ID LEFT_PAR elements RIGHT_PAR'''
+    global membersVar
     if (v[1] == '{' and v[2] == '}') :
         v[0] = {}
-        print (len(v))
         print("Soy value rule 1")
     elif (v[1] == '{' and v[3]  == '}'):
         v[0] = v[2]
@@ -45,21 +45,17 @@ def p_value(v):
     elif (v[2] == '=') :
         v[0] = v[3]
         membersVar[v[1]] = v[3]
-        # Preguntar, deberia guardar en un map.
-        '''Podria ser:
-            v[0]={}
-        if v[0].has_key(v[1]) == False:
-            v[0][v[1]]=v[3]
-        '''
         print("Soy value rule 5, igual")
+        print membersVar
     elif (v[2] == '(' and v[3]== ')') :
         v[0] = []
         membersVar[v[1]]=v[0]
         print("Soy value rule 6")
     elif (v[2] == '(' and v[4]== ')') :
         v[0] = v[3]
-        membersVar[v[1]]=v[0]
         print("Soy value rule 7")
+        # preguntar si aca no debo llamar a un constructor de maps, que cree { id : [elements] } Idem para Str(elements)
+
 
 def p_value_num(v):
     'value : NUM'
@@ -99,11 +95,9 @@ def p_value_str_rules(v):
              | STR LEFT_PAR elements RIGHT_PAR'''
     if (v[2]=="(" and v[3]==")"):
         v[0] = []
-        membersVar[v[1]] = v[0]
         print("Soy value STR rule 1")
     elif (len(v)==5):
         v[0] = v[3]
-        membersVar[v[1]] = v[3]
         print("Soy value STR rule 2")
 
 
@@ -141,14 +135,13 @@ def p_elements(e):
     global elementsVar
     if (len(e)==4) :
         e[0] = e[1]
-        e[0] = e[0] + e[3]
-        elementsVar = [e[1]]
-        elementsVar.__add__(e[3])
+        e[0].append(e[3])
         print("Soy element rule 2")
     else:
         e[0] = [e[1]]
-        elementsVar.__add__(e[1])
         print("Soy element rule 1")
+        elementsVar = []
+        elementsVar.append(e[1])
 
 def p_error(p):
     print("Syntax error at '%s'" % p.value)
