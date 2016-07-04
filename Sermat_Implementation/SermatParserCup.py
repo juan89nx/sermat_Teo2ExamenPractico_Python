@@ -2,8 +2,9 @@ import ply_LexCup.yacc as yacc
 
 # Get the token map from the lexer.
 from Sermat_Implementation.SermatLexer import tokens
-
 import Sermat_Implementation.SermatLexer as Lex
+from Construcciones import construirEnBaseAFuncion
+
 
 # Precedence rules
 precedence = (
@@ -13,12 +14,11 @@ precedence = (
     )
 
 # for storing variables
-membersVar = {}
-elementsVar = []
+membersMap = {}
+elementsList = []
 valueVar = type(object)
-# non terminal Map<String, Object> members; 
-# non terminal List<Object> elements; 
-# non terminal Object value; 
+
+bindings = {}
 
 
 def p_value(v):
@@ -29,7 +29,8 @@ def p_value(v):
              | ID EQUALS value
              | ID LEFT_PAR RIGHT_PAR
              | ID LEFT_PAR elements RIGHT_PAR'''
-    global membersVar
+    global membersMap
+    global bindings
     if (v[1] == '{' and v[2] == '}') :
         v[0] = {}
         print("Soy value rule 1")
@@ -41,21 +42,23 @@ def p_value(v):
         print("Soy value rule 3")
     elif (v[1] == '[' and v[3]  == ']'):
         v[0] = v[2]
-        print("Soy value rule 4")
+        print("Soy value rule 4 - [elements]")
     elif (v[2] == '=') :
         v[0] = v[3]
-        membersVar[v[1]] = v[3]
-        print("Soy value rule 5, igual")
-        print membersVar
+        #membersMap[v[1]] = v[3]
+        bindings[v[1]] = v[3]
+        print("Soy value rule 5, id=valor")
     elif (v[2] == '(' and v[3]== ')') :
         v[0] = []
-        membersVar[v[1]]=v[0]
-        print("Soy value rule 6")
+        membersMap[v[1]]=v[0]
+        valor = construirEnBaseAFuncion(v[1],[])
+        print("Soy value rule 6 - id()")
+        print "Retorno de Funcion: %s" % valor
     elif (v[2] == '(' and v[4]== ')') :
         v[0] = v[3]
-        print("Soy value rule 7")
-        # preguntar si aca no debo llamar a un constructor de maps, que cree { id : [elements] } Idem para Str(elements)
-
+        print("Soy value rule 7 - id(elem)")
+        valor = construirEnBaseAFuncion(v[1],v[3])
+        print "Retorno de Funcion: %s" % (valor,)
 
 def p_value_num(v):
     'value : NUM'
@@ -86,7 +89,7 @@ print("Soy value NULL")
 def p_value_id(v):
     'value : ID'
     v[0] = v[1]
-    membersVar[v[1]] = None
+    membersMap[v[1]] = None
     print("Soy value ID")
 
 
@@ -95,37 +98,50 @@ def p_value_str_rules(v):
              | STR LEFT_PAR elements RIGHT_PAR'''
     if (v[2]=="(" and v[3]==")"):
         v[0] = []
+        valor = construirEnBaseAFuncion(v[1],[])
         print("Soy value STR rule 1")
+        print "Retorno de Funcion: %s" % valor
     elif (len(v)==5):
         v[0] = v[3]
+        valor = construirEnBaseAFuncion(v[1],v[3])
         print("Soy value STR rule 2")
+        print "Retorno de Funcion: %s" % valor
 
 
 
 def p_members_mem_str_val(m):
         'members : members COMMA STR COLON value'
+        global membersMap
         m[0] = m[1]
-        membersVar[m[0]] = {m[3], m[5]}
+        membersMap[m[3]] = m[5]
         print("Soy member rule 1")
 
 def p_members_mem_id_val(m):
         'members : members COMMA ID COLON value'
-        m[0] = m[1]
-        membersVar[m[0]] = {m[3], m[5]}
-        print("Soy member rule 2")
+        if(m[2]=="," and m[4]== ":"):
+            global membersMap
+            m[0] = m[1]
+            membersMap[m[3]] = m[5]
+            print("Soy member rule 2")
 
 def p_members_str_val(m):
         'members : STR COLON value'
-        if(m[2]==':'):
-            print ("entra :")
+        global membersMap
+        if(m[2]==':' and type(m[1]) == type(" ")):
+            print type(m[1])
             m[0] = {}
-            m[m[1]] = m[3]
+            m[0][m[1]] = m[3]
+            membersMap[m[1]] = m[3]
+            print membersMap
             print("Soy member rule 3")
 
 def p_members_id_val(m):
         'members : ID COLON value'
+        global membersMap
         m[0] = {}
-        m[m[1]] = m[3]
+        print "Valor m[1]: "+str(m[1])
+        m[0][m[1]] = m[3]
+        membersMap[m[1]] = m[3]
         print("Soy member rule 4")
 
 
@@ -136,6 +152,7 @@ def p_elements(e):
     if (len(e)==4) :
         e[0] = e[1]
         e[0].append(e[3])
+        elementsVar.append(e[3])
         print("Soy element rule 2")
     else:
         e[0] = [e[1]]
@@ -149,6 +166,7 @@ def p_error(p):
 Lex.buildLexer()
 parser = yacc.yacc()
 
+
 while True:
     try:
         s = raw_input('entrada > ')   # use input() on Python 3
@@ -156,9 +174,12 @@ while True:
         break
     result = parser.parse(s)
     print(result)
-
-
-
+    print "memberVar:"
+    print membersMap
+    print "elementsList:"
+    print elementsList
+    print "bindings:"
+    print bindings
 
 
 
