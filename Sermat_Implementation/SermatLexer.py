@@ -15,7 +15,8 @@ tokens = (
     'FALSE',
     'NUM',
     'ID',
-    'STR'
+    'STR',
+    'BINDINGS'
 )
 
 # Tokens
@@ -30,13 +31,18 @@ t_LEFT_PAR = r'\('
 t_RIGHT_PAR = r'\)'
 
 def t_ID(t):
-    r'[A-Z_a-z][\$\-\.A-Z_a-z0-9]*'
+    r'[A-Z_a-z][\-\.A-Z_a-z0-9]*'
     if t.value == 'true':
         t.type = 'TRUE'
     elif t.value == 'false':
         t.type='FALSE'
     elif t.value == 'null':
         t.type="NULL"
+    return t
+
+#Para Bindings
+def t_BINDINGS(t):
+    r'\$[\-\.A-Z_a-z0-9]+'
     return t
 
 

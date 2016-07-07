@@ -7,10 +7,9 @@ lex = buildLexer()
 
 #print lex.lextokens_all
 
-#varTokens = lexerVar.tokenize2('hola true null false nulla :')
+#varTokens = lexerVar.tokenize2('id $Bin $ .A')
 #print "tokens->"
 #print varTokens
-
 
 
 
