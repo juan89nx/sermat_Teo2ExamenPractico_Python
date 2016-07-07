@@ -1,3 +1,6 @@
+#Created by: Juan Perciante
+# July 2016
+
 import ply_LexCup.lex as lex
 
 tokens = (
@@ -40,7 +43,7 @@ def t_ID(t):
         t.type="NULL"
     return t
 
-#Para Bindings
+#token created for Bindings
 def t_BINDINGS(t):
     r'\$[\-\.A-Z_a-z0-9]+'
     return t
@@ -97,14 +100,13 @@ def buildLexer():
     return myLexer
 
 
-# tokenize() -> para probar los tokens
-# Utility function. Given a string of text, tokenize into a list of tokens
-def tokenize2(text):
-    tokens2 = []
+# Utility function to test tokens. Given a string of text, tokenize into a list of tokens
+def tokenize(text):
+    tokens = []
     lexer = buildLexer()
     lexer.input(text)
     while True:
         tok = lexer.token()
         if not tok: break
-        tokens2.append(tok)
-    return tokens2
+        tokens.append(tok)
+    return tokens

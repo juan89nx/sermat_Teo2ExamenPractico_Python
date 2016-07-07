@@ -1,3 +1,6 @@
+#Created by: Juan Perciante
+# July 2016
+
 import ply_LexCup.yacc as yacc
 
 # Get the token map from the lexer.
@@ -13,7 +16,7 @@ precedence = (
     ('RIGHT_BRACK', 'COMMA'),
     )
 
-# for storing variables
+# for storing bindings variables
 bindingsList = {}
 
 
@@ -53,13 +56,6 @@ def p_value_boolNumStrNull(v):
              | STR
              | NULL'''
     v[0] = v[1]
-
-
-#def p_value_id(v):
-#    'value : ID'
-#    v[0] = v[1]
-#    membersMap[v[1]] = None
-#    print("Soy value ID")
 
 
 def p_value_str_rules(v):
@@ -113,13 +109,13 @@ parser = yacc.yacc()
 
 while True:
     try:
-        s = raw_input('entrada > ') # use input() on Python 3
+        s = raw_input('Entry > ') # use input() on Python 3
         result = parser.parse(s)
         print "Parser Result:"
         print(result)
-        print "bindingsList:"
-        print bindingsList
-     #   bindingsList = {}
+        #print "bindingsList:"
+        #print bindingsList
+        bindingsList = {}
     #except Exception:
     #    print "You need to type a valid enter!"
     except EOFError:
