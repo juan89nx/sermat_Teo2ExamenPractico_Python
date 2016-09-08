@@ -41,6 +41,12 @@ def t_ID(t):
         t.type='FALSE'
     elif t.value == 'null':
         t.type="NULL"
+    elif t.value == "NaN":
+        t.type="NUM"
+        t.value = float ("NaN")
+    elif t.value == "Infinity":
+        t.type = "NUM"
+        t.value = float("Infinity")
     return t
 
 #token created for Bindings
@@ -50,8 +56,8 @@ def t_BINDINGS(t):
 
 
 def t_NUM(t):
-    r'NaN|[+-]?Infinity|[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?'
-    t.value = int(t.value)
+    r'[+-]Infinity|[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?'
+    t.value = float(t.value)
     return t
 
 def t_STR(t):
